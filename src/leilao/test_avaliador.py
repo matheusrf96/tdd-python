@@ -18,8 +18,8 @@ class TestAvaliador(TestCase):
         self.leilao = Leilao('Celular')
 
     def test_avalia_asc(self):
-        self.leilao.lances.append(self.lance1)
-        self.leilao.lances.append(self.lance2)
+        self.leilao.propoe(self.lance1)
+        self.leilao.propoe(self.lance2)
 
         ava = Avaliador()
         ava.avalia(self.leilao)
@@ -31,8 +31,8 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, ava.maior_lance)
 
     def test_avalia_desc(self):
-        self.leilao.lances.append(self.lance2)
-        self.leilao.lances.append(self.lance1)
+        self.leilao.propoe(self.lance2)
+        self.leilao.propoe(self.lance1)
 
         ava = Avaliador()
         ava.avalia(self.leilao)
@@ -44,7 +44,7 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, ava.maior_lance)
 
     def test_avalia_single_lance(self):
-        self.leilao.lances.append(self.lance1)
+        self.leilao.propoe(self.lance1)
 
         ava = Avaliador()
         ava.avalia(self.leilao)
@@ -56,9 +56,9 @@ class TestAvaliador(TestCase):
         self.assertEqual(maior_valor_esperado, ava.maior_lance)
 
     def test_avalia_multiple_lances(self):
-        self.leilao.lances.append(self.lance1)
-        self.leilao.lances.append(self.lance2)
-        self.leilao.lances.append(self.lance3)
+        self.leilao.propoe(self.lance1)
+        self.leilao.propoe(self.lance2)
+        self.leilao.propoe(self.lance3)
 
         ava = Avaliador()
         ava.avalia(self.leilao)
