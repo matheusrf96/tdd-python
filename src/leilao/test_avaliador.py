@@ -1,5 +1,5 @@
 
-from src.leilao.dominio import Usuario, Lance, Leilao, Avaliador
+from src.leilao.dominio import Usuario, Lance, Leilao
 
 from unittest import TestCase
 
@@ -21,50 +21,38 @@ class TestAvaliador(TestCase):
         self.leilao.propoe(self.lance1)
         self.leilao.propoe(self.lance2)
 
-        ava = Avaliador()
-        ava.avalia(self.leilao)
-
         menor_valor_esperado = 50.0
         maior_valor_esperado = 100.0
 
-        self.assertEqual(menor_valor_esperado, ava.menor_lance)
-        self.assertEqual(maior_valor_esperado, ava.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_avalia_desc(self):
         self.leilao.propoe(self.lance2)
         self.leilao.propoe(self.lance1)
 
-        ava = Avaliador()
-        ava.avalia(self.leilao)
-
         menor_valor_esperado = 50.0
         maior_valor_esperado = 100.0
 
-        self.assertEqual(menor_valor_esperado, ava.menor_lance)
-        self.assertEqual(maior_valor_esperado, ava.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_avalia_single_lance(self):
         self.leilao.propoe(self.lance1)
 
-        ava = Avaliador()
-        ava.avalia(self.leilao)
-
         menor_valor_esperado = 50.0
         maior_valor_esperado = 50.0
 
-        self.assertEqual(menor_valor_esperado, ava.menor_lance)
-        self.assertEqual(maior_valor_esperado, ava.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_avalia_multiple_lances(self):
         self.leilao.propoe(self.lance1)
         self.leilao.propoe(self.lance2)
         self.leilao.propoe(self.lance3)
 
-        ava = Avaliador()
-        ava.avalia(self.leilao)
-
         menor_valor_esperado = 30.0
         maior_valor_esperado = 100.0
 
-        self.assertEqual(menor_valor_esperado, ava.menor_lance)
-        self.assertEqual(maior_valor_esperado, ava.maior_lance)
+        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
+        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
