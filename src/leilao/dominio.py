@@ -1,5 +1,3 @@
-import sys
-
 
 class Lance:
 
@@ -13,24 +11,37 @@ class Leilao:
     def __init__(self, descricao):
         self.descricao = descricao
         self.__lances = []
-        self.maior_lance = sys.float_info.min
-        self.menor_lance = sys.float_info.max
+        self.maior_lance = 0.0
+        self.menor_lance = 0.0
 
     @property
     def lances(self) -> list:
         return self.__lances[:]
 
     def propoe(self, lance: Lance) -> bool:
-        if not self.__lances or self.__lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor:
-            if lance.valor > self.maior_lance:
-                self.maior_lance = lance.valor
-            if lance.valor < self.menor_lance:
+        if self._lance_valido(lance):
+            if not self._tem_lances():
                 self.menor_lance = lance.valor
 
+            self.maior_lance = lance.valor
             self.__lances.append(lance)
+
             return True
 
         raise ValueError('Erro ao propor lance.')
+
+    def _tem_lances(self):
+        return self.__lances
+
+    def _usuarios_differentes(self, lance: Lance) -> bool:
+        return self.__lances[-1].usuario != lance.usuario
+
+    def _valor_maior_que_anterior(self, lance: Lance) -> bool:
+        return lance.valor > self.__lances[-1].valor
+
+    def _lance_valido(self, lance: Lance) -> bool:
+        return not self._tem_lances() or self._usuarios_differentes(lance) and self._valor_maior_que_anterior(lance)
+
 
 
 class Usuario:
