@@ -7,9 +7,9 @@ from unittest import TestCase
 class TestLeilao(TestCase):
 
     def setUp(self):
-        self.user1 = Usuario('User 1')
-        self.user2 = Usuario('User 2')
-        self.user3 = Usuario('User 3')
+        self.user1 = Usuario('User 1', 500.0)
+        self.user2 = Usuario('User 2', 500.0)
+        self.user3 = Usuario('User 3', 500.0)
 
         self.lance1 = Lance(self.user1, 50.0)
         self.lance2 = Lance(self.user2, 100.0)

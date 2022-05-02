@@ -1,16 +1,6 @@
 import sys
 
 
-class Usuario:
-
-    def __init__(self, nome):
-        self.__nome = nome
-
-    @property
-    def nome(self):
-        return self.__nome
-
-
 class Lance:
 
     def __init__(self, usuario, valor):
@@ -41,3 +31,24 @@ class Leilao:
             return True
 
         raise ValueError('Erro ao propor lance.')
+
+
+class Usuario:
+
+    def __init__(self, nome, carteira):
+        self.__nome = nome
+        self.__carteira = carteira
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @property
+    def carteira(self):
+        return self.__carteira
+
+    def propoe_lance(self, leilao: Leilao, valor: float):
+        lance = Lance(self, valor)
+        leilao.propoe(lance)
+
+        self.__carteira -= valor
