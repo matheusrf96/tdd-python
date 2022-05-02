@@ -13,7 +13,7 @@ class TestLeilao(TestCase):
 
         self.lance1 = Lance(self.user1, 50.0)
         self.lance2 = Lance(self.user2, 100.0)
-        self.lance3 = Lance(self.user3, 30.0)
+        self.lance3 = Lance(self.user3, 130.0)
         self.lance4 = Lance(self.user1, 75.0)
 
         self.leilao = Leilao('Celular')
@@ -28,15 +28,10 @@ class TestLeilao(TestCase):
         self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
-    def test_avalia_desc(self):
-        self.leilao.propoe(self.lance2)
-        self.leilao.propoe(self.lance1)
-
-        menor_valor_esperado = 50.0
-        maior_valor_esperado = 100.0
-
-        self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
-        self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
+    def test_shouldnt_allow_lances_desc_order(self):
+        with self.assertRaises(ValueError):
+            self.leilao.propoe(self.lance2)
+            self.leilao.propoe(self.lance1)
 
     def test_avalia_single_lance(self):
         self.leilao.propoe(self.lance1)
@@ -52,8 +47,8 @@ class TestLeilao(TestCase):
         self.leilao.propoe(self.lance2)
         self.leilao.propoe(self.lance3)
 
-        menor_valor_esperado = 30.0
-        maior_valor_esperado = 100.0
+        menor_valor_esperado = 50.0
+        maior_valor_esperado = 130.0
 
         self.assertEqual(menor_valor_esperado, self.leilao.menor_lance)
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
