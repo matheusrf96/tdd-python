@@ -27,10 +27,10 @@ class Leilao:
         self.menor_lance = sys.float_info.max
 
     @property
-    def lances(self):
+    def lances(self) -> list:
         return self.__lances[:]
 
-    def propoe(self, lance: Lance):
+    def propoe(self, lance: Lance) -> bool:
         if not self.__lances or self.__lances[-1].usuario != lance.usuario:
             if lance.valor > self.maior_lance:
                 self.maior_lance = lance.valor
@@ -38,3 +38,6 @@ class Leilao:
                 self.menor_lance = lance.valor
 
             self.__lances.append(lance)
+            return True
+
+        raise ValueError('O mesmo usuário não pode dar dois lances seguidos.')

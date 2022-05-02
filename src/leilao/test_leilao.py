@@ -69,7 +69,6 @@ class TestLeilao(TestCase):
         self.assertEqual(2, len(self.leilao.lances))
 
     def test_doesnt_allow_lance_from_the_same_user_twice_in_sequence(self):
-        self.leilao.propoe(self.lance1)
-        self.leilao.propoe(self.lance4)
-
-        self.assertEqual(1, len(self.leilao.lances))
+        with self.assertRaises(ValueError):
+            self.leilao.propoe(self.lance1)
+            self.leilao.propoe(self.lance4)
