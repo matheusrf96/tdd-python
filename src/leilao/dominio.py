@@ -48,6 +48,9 @@ class Usuario:
         return self.__carteira
 
     def propoe_lance(self, leilao: Leilao, valor: float):
+        if valor > self.__carteira:
+            raise ValueError('Não é permitido propor lance com valor maior que o da carteira.')
+
         lance = Lance(self, valor)
         leilao.propoe(lance)
 
