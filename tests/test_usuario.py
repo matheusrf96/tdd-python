@@ -1,6 +1,7 @@
 import pytest
 
 from src.leilao.dominio import Leilao, Usuario
+from src.leilao.excecoes import LanceInvalido
 
 
 def generate_wallet_value(wallet_value: float, lance_value: float) -> float:
@@ -28,5 +29,5 @@ def test_lance_value_equal_wallet_value():
 
 
 def test_doesnt_allow_lance_value_greater_than_wallet_value():
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
         _ = generate_wallet_value(50.0, 100.0)

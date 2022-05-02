@@ -1,7 +1,8 @@
 
-from src.leilao.dominio import Usuario, Lance, Leilao
-
 from unittest import TestCase
+
+from src.leilao.dominio import Usuario, Lance, Leilao
+from src.leilao.excecoes import LanceInvalido
 
 
 class TestLeilao(TestCase):
@@ -29,7 +30,7 @@ class TestLeilao(TestCase):
         self.assertEqual(maior_valor_esperado, self.leilao.maior_lance)
 
     def test_shouldnt_allow_lances_desc_order(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance2)
             self.leilao.propoe(self.lance1)
 
@@ -64,6 +65,6 @@ class TestLeilao(TestCase):
         self.assertEqual(2, len(self.leilao.lances))
 
     def test_doesnt_allow_lance_from_the_same_user_twice_in_sequence(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance1)
             self.leilao.propoe(self.lance4)
